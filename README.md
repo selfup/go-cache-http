@@ -4,7 +4,7 @@ Small Golang expirement :smile:
 
 ### Docker
 
-Only use to build the image if using containerization technologies like:
+Only use Docker to build the image if using containerization technologies like:
 
 1. Docker Swarm
 2. Kubernetes (k8s)
