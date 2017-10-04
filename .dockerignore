@@ -1,0 +1,7 @@
+.git
+run.log
+coverage.out
+*hello*
+*docker-compose*
+scripts
+*_test*
