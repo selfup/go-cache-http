@@ -16,20 +16,16 @@ var (
 	mutex = &sync.Mutex{}
 )
 
-// User is just an id and a unix timestamp object
-type User struct {
-	id   string
-	unix int64
-}
-
-func writeToState(id string, lid string, state map[string][]string) {
+// WriteToState is a safe way of updating state by forcing a Mutex Lock
+func WriteToState(id string, lid string, state map[string][]string) {
 	mutex.Lock()
 	oldIds := state[lid]
-	writeToLidIds(oldIds, id, lid, state)
+	WriteToLidIds(oldIds, id, lid, state)
 	mutex.Unlock()
 }
 
-func writeToLidIds(oldIds []string, id string, lid string, state map[string][]string) {
+// WriteToLidIds makes sure to not write to state under certain conditions
+func WriteToLidIds(oldIds []string, id string, lid string, state map[string][]string) {
 	var hasID bool
 
 	for _, v := range oldIds {
@@ -48,7 +44,7 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 	lid := r.FormValue("lid")
 	id := r.FormValue("id")
 
-	writeToState(id, lid, state)
+	WriteToState(id, lid, state)
 
 	fmt.Fprintf(w, "%s", state[lid])
 }
