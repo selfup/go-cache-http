@@ -13,8 +13,8 @@ Only use Docker to build the image if using containerization technologies like:
 5. AWS/Azure Container Solutions
 6. A VPS with only Docker as a dependency (Digital Ocean/Linode box)
 
-The image is an alpine linux box, very small so no need to worry about bandwith.
-
+The image for production is using alpine linux.
+Very small so no need to worry about bandwith.
 Build times are very fast even from scratch!
 
 ### Development
