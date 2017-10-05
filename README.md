@@ -21,10 +21,14 @@ Build times are very fast even from scratch!
 
 ### Development
 
-If you are deploying to containerized platforms, build times are fast enough that you should be able to:
+Use a local Go install to develop this software.
 
-`docker-compose up --build` (it just copies and re-compiles)
+**Windows10**
 
-Working on figuring out an official watch script for dev.
+Use WSL to run the development scripts.
 
-Will need to split up a `Dockerfile.dev` as well as a `docker-compose.dev.yml` for development purposes.
+Or run them as is without calling the files.
+
+***nix**
+
+Run the scripts :tada:
