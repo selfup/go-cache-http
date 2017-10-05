@@ -31,7 +31,9 @@ func WriteToLidIds(oldIds []string, id string, lid string, state map[string][]st
 	for _, v := range oldIds {
 		if v == id {
 			hasID = true
-			return // exit for loop as soon as we find a match
+			break // exit for loop as soon as we find a match
+		} else {
+			continue
 		}
 	}
 
