@@ -1,4 +1,4 @@
-package main
+package go_cache_http
 
 import (
 	"reflect"
