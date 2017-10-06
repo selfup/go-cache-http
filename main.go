@@ -17,7 +17,7 @@ func definePort() string {
 	portEnv := os.Getenv("PORT")
 
 	if portEnv != "" {
-		return portEnv
+		return ":" + portEnv
 	}
 
 	return ":8080"
