@@ -1,5 +1,4 @@
 run.log
 coverage.out
-hello.exe
-hello
+*go_cache_http*
 gin-bin

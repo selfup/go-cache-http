@@ -1,7 +1,9 @@
 .git
 run.log
 coverage.out
-*hello*
+*go_cache_http*
 *docker-compose*
 scripts
+builds
 *_test*
+lib/*_test*
