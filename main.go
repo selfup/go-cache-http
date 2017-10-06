@@ -3,18 +3,25 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	lib "github.com/selfup/go_cache_http/lib"
 )
 
-const (
-	// PORT is the server port
-	PORT = ":8080"
-)
-
 var (
+	port  = definePort()
 	state = make(map[string][]string)
 )
+
+func definePort() string {
+	portEnv := os.Getenv("PORT")
+
+	if portEnv != "" {
+		return portEnv
+	}
+
+	return ":8080"
+}
 
 func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 	lid := r.FormValue("lid")
@@ -27,5 +34,5 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", fetchCacheOrUpdate)
-	http.ListenAndServe(PORT, nil)
+	http.ListenAndServe(port, nil)
 }
