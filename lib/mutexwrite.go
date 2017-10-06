@@ -17,7 +17,9 @@ func WriteToState(id string, lid string, state map[string][]string) {
 }
 
 // WriteToLidIds makes sure to not write to state under certain conditions
-func WriteToLidIds(oldIds []string, id string, lid string, state map[string][]string) {
+func WriteToLidIds(
+	oldIds []string, id string, lid string, state map[string][]string,
+) {
 	var hasID bool
 
 	for _, v := range oldIds {
