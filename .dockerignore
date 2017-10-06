@@ -7,3 +7,5 @@ scripts
 builds
 *_test*
 lib/*_test*
+*Dockerfile*
+gin-bin

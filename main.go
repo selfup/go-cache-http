@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"os"
 
-	lib "github.com/selfup/go_cache_http/lib"
+	lib "github.com/selfup/go-cache-http/lib"
 )
 
 var (

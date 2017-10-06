@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: ./hello
+    command: ./go-cache-http
     ports:
       - "8080:8080"
     volumes:
