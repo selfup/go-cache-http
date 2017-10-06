@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	lib "github.com/go_cache_http/lib"
+	lib "github.com/selfup/go_cache_http/lib"
 )
 
 const (
