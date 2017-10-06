@@ -13,6 +13,9 @@ func TestCache_WriteToState(t *testing.T) {
 	WriteToState("1", "1", state)
 	WriteToState("2", "1", state)
 
+	// write "1" again to the same lid and keep the list the same
+	WriteToState("1", "1", state)
+
 	actual := state["1"]
 	expected := []string{"1", "2"}
 
