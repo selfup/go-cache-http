@@ -22,13 +22,3 @@ Build times are very fast even from scratch!
 ### Development
 
 Use a local Go install to develop this software.
-
-**Windows10**
-
-Use WSL to run the development scripts.
-
-Or run them as is without calling the files.
-
-***nix**
-
-Run the scripts :tada:
