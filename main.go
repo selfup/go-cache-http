@@ -10,7 +10,6 @@ import (
 )
 
 var (
-	port  = definePort()
 	state = make(map[string]*lib.CacheData)
 )
 
@@ -36,10 +35,12 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 
 	lib.WriteToState(key, data, unix, state)
 
-	fmt.Fprintf(w, "%v", state)
+	fmt.Fprintf(w, "%v", state[key])
 }
 
 func main() {
+	port := definePort()
+
 	http.HandleFunc("/", fetchCacheOrUpdate)
 	http.ListenAndServe(port, nil)
 }
