@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 	"os"
 
@@ -9,8 +9,7 @@ import (
 )
 
 var (
-	port  = definePort()
-	state = make(map[string][]string)
+	state = make(map[string]*lib.CacheData)
 )
 
 func definePort() string {
@@ -24,15 +23,41 @@ func definePort() string {
 }
 
 func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
-	lid := r.FormValue("lid")
-	id := r.FormValue("id")
+	decoder := json.NewDecoder(r.Body)
 
-	lib.WriteToState(id, lid, state)
+	var incoming struct {
+		Key     string
+		Data    string
+		Unix    int64
+		Expires int64
+	}
 
-	fmt.Fprintf(w, "%s", state[lid])
+	err := decoder.Decode(&incoming)
+	if err != nil {
+		http.Error(w, "failed to parse JSON", 500)
+		return
+	}
+
+	lib.WriteToState(
+		incoming.Key,
+		incoming.Data,
+		incoming.Unix,
+		incoming.Expires,
+		state,
+	)
+
+	outgoing, err := json.Marshal(incoming)
+	if err != nil {
+		http.Error(w, "failed to stringify JSON", 500)
+		return
+	}
+
+	w.Write(outgoing)
 }
 
 func main() {
+	port := definePort()
+
 	http.HandleFunc("/", fetchCacheOrUpdate)
 	http.ListenAndServe(port, nil)
 }
