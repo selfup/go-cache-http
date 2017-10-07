@@ -1,10 +1,8 @@
-FROM golang:1.9-alpine
 
-ENV PORT 8080
-EXPOSE 8080
+FROM alpine:latest
 
-COPY . /go/src/github.com/selfup/go-cache-http
+WORKDIR "/opt"
 
-RUN go install github.com/selfup/go-cache-http
+ADD .docker_build/go-cache-http /opt/bin/go-cache-http
 
-ENTRYPOINT /go/bin/go-cache-http
+CMD ["/opt/bin/go-cache-http"]
