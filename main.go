@@ -12,7 +12,8 @@ var (
 	state = make(map[string]*lib.CacheData)
 )
 
-func definePort() string {
+// DefinePort either grabs the PORT ENV or defines 8080 as the port
+func DefinePort() string {
 	portEnv := os.Getenv("PORT")
 
 	if portEnv != "" {
@@ -22,7 +23,8 @@ func definePort() string {
 	return ":8080"
 }
 
-func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
+// FetchCacheOrUpdate is the main handler
+func FetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 
 	var incoming struct {
@@ -46,7 +48,7 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 		state,
 	)
 
-	outgoing, err := json.Marshal(incoming)
+	outgoing, err := json.Marshal(state[incoming.Key])
 	if err != nil {
 		http.Error(w, "failed to stringify JSON", 500)
 		return
@@ -56,8 +58,6 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	port := definePort()
-
-	http.HandleFunc("/", fetchCacheOrUpdate)
-	http.ListenAndServe(port, nil)
+	http.HandleFunc("/", FetchCacheOrUpdate)
+	http.ListenAndServe(DefinePort(), nil)
 }
