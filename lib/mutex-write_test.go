@@ -12,14 +12,14 @@ func TestCache_WriteToState(t *testing.T) {
 	)
 
 	key := "1"
-	testStr := "test"
+	testData := "test"
 
-	WriteToState(key, testStr, unixInt, state)
+	WriteToState(key, testData, unixInt, state)
 
-	expected := testStr
-	actual := state[key].data
+	expected := NewCacheData(testData, unixInt)
+	actual := state[key]
 
-	if !reflect.DeepEqual(testStr, state[key].data) {
+	if !reflect.DeepEqual(expected, actual) {
 		t.Fatalf("unexpected: %v - actual is: %v", expected, actual)
 	}
 }
