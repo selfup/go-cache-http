@@ -11,13 +11,16 @@ func TestCache_WriteToState(t *testing.T) {
 	)
 
 	WriteToState("1", "1", state)
+	WriteToState("2", "1", state)
 
-	lidOneIds := state["1"]
-	expectedSlice := []string{}
-	expected := append(expectedSlice, "1")
+	// write "1" again to the same lid and keep the list the same
+	WriteToState("1", "1", state)
 
-	if !reflect.DeepEqual(lidOneIds, expected) {
-		t.Fatalf("unexpected slice: %v", expected)
+	actual := state["1"]
+	expected := []string{"1", "2"}
+
+	if !reflect.DeepEqual(actual, expected) {
+		t.Fatalf("unexpected: %v - actual is: %v", expected, actual)
 	}
 }
 
