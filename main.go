@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 	"os"
-	"strconv"
 
 	lib "github.com/selfup/go-cache-http/lib"
 )
@@ -24,18 +23,36 @@ func definePort() string {
 }
 
 func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
-	key := r.FormValue("key")
-	data := r.FormValue("data")
-	unixString := r.FormValue("unix")
+	decoder := json.NewDecoder(r.Body)
 
-	unix, err := strconv.ParseInt(unixString, 2, 64)
-	if err != nil {
-		panic(err)
+	var incoming struct {
+		Key     string
+		Data    string
+		Unix    int64
+		Expires int64
 	}
 
-	lib.WriteToState(key, data, unix, state)
+	err := decoder.Decode(&incoming)
+	if err != nil {
+		http.Error(w, "failed to parse JSON", 500)
+		return
+	}
 
-	fmt.Fprintf(w, "%v", state[key])
+	lib.WriteToState(
+		incoming.Key,
+		incoming.Data,
+		incoming.Unix,
+		incoming.Expires,
+		state,
+	)
+
+	outgoing, err := json.Marshal(incoming)
+	if err != nil {
+		http.Error(w, "failed to stringify JSON", 500)
+		return
+	}
+
+	w.Write(outgoing)
 }
 
 func main() {

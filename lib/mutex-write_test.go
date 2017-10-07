@@ -14,7 +14,7 @@ func TestCache_WriteToState(t *testing.T) {
 	key := "1"
 	testData := "test"
 
-	WriteToState(key, testData, unixInt, state)
+	WriteToState(key, testData, unixInt, 0, state)
 
 	expected := NewCacheData(testData, unixInt)
 	actual := state[key]

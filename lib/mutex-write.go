@@ -1,7 +1,6 @@
 package lib
 
 import (
-	"fmt"
 	"sync"
 )
 
@@ -14,10 +13,11 @@ func WriteToState(
 	lid string,
 	data string,
 	unix int64,
+	expires int64,
 	state map[string]*CacheData,
 ) {
 	mutex.Lock()
-	WriteCacheValueData(lid, data, unix, state)
+	WriteCacheValueData(lid, data, unix, expires, state)
 	mutex.Unlock()
 }
 
@@ -26,10 +26,11 @@ func WriteCacheValueData(
 	lid string,
 	data string,
 	unix int64,
+	expires int64,
 	state map[string]*CacheData,
 ) {
 	if state[lid] != nil {
-		fmt.Println("wow")
+
 	} else {
 		state[lid] = NewCacheData(data, unix)
 	}
