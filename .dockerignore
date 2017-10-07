@@ -9,3 +9,4 @@ builds
 lib/*_test*
 *Dockerfile*
 gin-bin
+ab_bench

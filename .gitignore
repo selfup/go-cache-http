@@ -2,3 +2,6 @@ run.log
 coverage.out
 *go_cache_http*
 gin-bin
+lib/coverage.out
+.docker_build
+
