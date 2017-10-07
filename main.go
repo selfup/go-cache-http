@@ -4,13 +4,14 @@ import (
 	"fmt"
 	"net/http"
 	"os"
+	"strconv"
 
 	lib "github.com/selfup/go-cache-http/lib"
 )
 
 var (
 	port  = definePort()
-	state = make(map[string][]string)
+	state = make(map[string]*lib.CacheData)
 )
 
 func definePort() string {
@@ -24,12 +25,18 @@ func definePort() string {
 }
 
 func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
-	lid := r.FormValue("lid")
-	id := r.FormValue("id")
+	key := r.FormValue("key")
+	data := r.FormValue("data")
+	unixString := r.FormValue("unix")
 
-	lib.WriteToState(id, lid, state)
+	unix, err := strconv.ParseInt(unixString, 0, 64)
+	if err != nil {
+		panic(err)
+	}
 
-	fmt.Fprintf(w, "%s", state[lid])
+	lib.WriteToState(key, data, unix, state)
+
+	fmt.Fprintf(w, "%v", state)
 }
 
 func main() {

@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"sync"
 )
 
@@ -9,28 +10,27 @@ var (
 )
 
 // WriteToState is a safe way of updating state by forcing a Mutex Lock
-func WriteToState(id string, lid string, state map[string][]string) {
+func WriteToState(
+	lid string,
+	data string,
+	unix int64,
+	state map[string]*CacheData,
+) {
 	mutex.Lock()
-	oldIds := state[lid]
-	WriteToLidIds(oldIds, id, lid, state)
+	WriteToLidIds(lid, data, unix, state)
 	mutex.Unlock()
 }
 
 // WriteToLidIds makes sure to not write to state under certain conditions
-func WriteToLidIds(oldIds []string, id string, lid string, state map[string][]string) {
-	var hasID bool
-
-	for _, v := range oldIds {
-		if v == id {
-			hasID = true
-			break // exit for loop as soon as we find a match
-		} else {
-			continue
-		}
-	}
-
-	if !hasID {
-		ids := append(oldIds, id)
-		state[lid] = ids
+func WriteToLidIds(
+	lid string,
+	data string,
+	unix int64,
+	state map[string]*CacheData,
+) {
+	if state[lid] != nil {
+		fmt.Println("wow")
+	} else {
+		state[lid] = NewCacheData(data, unix)
 	}
 }
