@@ -4,4 +4,4 @@
 cd ab_bench \
   && ./bench.sh \
   && cd .. \
-  && git checkout results
+  && git checkout .results
