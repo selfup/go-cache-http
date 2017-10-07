@@ -17,12 +17,12 @@ func WriteToState(
 	state map[string]*CacheData,
 ) {
 	mutex.Lock()
-	WriteToLidIds(lid, data, unix, state)
+	WriteCacheValueData(lid, data, unix, state)
 	mutex.Unlock()
 }
 
-// WriteToLidIds makes sure to not write to state under certain conditions
-func WriteToLidIds(
+// WriteCacheValueData makes sure to not write to state under certain conditions
+func WriteCacheValueData(
 	lid string,
 	data string,
 	unix int64,
