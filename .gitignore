@@ -4,3 +4,4 @@ coverage.out
 gin-bin
 lib/coverage.out
 .docker_build
+builds
