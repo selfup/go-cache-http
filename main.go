@@ -28,7 +28,7 @@ func fetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 	data := r.FormValue("data")
 	unixString := r.FormValue("unix")
 
-	unix, err := strconv.ParseInt(unixString, 0, 64)
+	unix, err := strconv.ParseInt(unixString, 2, 64)
 	if err != nil {
 		panic(err)
 	}
