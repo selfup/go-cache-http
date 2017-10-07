@@ -9,5 +9,7 @@ $(DOCKER_CMD): clean
 clean:
 	rm -rf $(DOCKER_BUILD)
 
-heroku: $(DOCKER_CMD)
+push: $(DOCKER_CMD)
 	heroku container:push web --app gocrashttp
+
+open: $(shell heroku open --app gocrashttp)
