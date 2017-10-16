@@ -25,6 +25,11 @@ func DefinePort() string {
 
 // FetchCacheOrUpdate is the main handler
 func FetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "this endpoint only supports POST requests", 405)
+		return
+	}
+
 	decoder := json.NewDecoder(r.Body)
 
 	var incoming struct {

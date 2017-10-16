@@ -5,7 +5,7 @@ git update-index --assume-unchanged .results
 
 ab \
   -n 100000 \
-  -c 10 \
+  -c 50 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \

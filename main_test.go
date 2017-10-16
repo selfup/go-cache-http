@@ -18,20 +18,28 @@ func TestItFailsToParseAnEmptyRequest(t *testing.T) {
 	server := httptest.NewServer(&myHandler{})
 	defer server.Close()
 
-	resp, err := http.Get(server.URL)
+	data := ``
+	resp, err := http.NewRequest(
+		"POST",
+		server.URL,
+		strings.NewReader(data),
+	)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if resp.StatusCode != 500 {
-		t.Fatalf("Received non-500 response: %d\n", resp.StatusCode)
+
+	res, err := http.DefaultClient.Do(resp)
+
+	if res.StatusCode != 500 {
+		t.Fatalf("Received non-500 response: %d\n", res.StatusCode)
 	}
 }
 
 func TestItParsesAValidRequest(t *testing.T) {
 	server := httptest.NewServer(&myHandler{})
 	defer server.Close()
-	data := `{"username": "dennis", "balance": 200}`
 
+	data := `{"data": "1", "unix": 12345678}`
 	request, err := http.NewRequest(
 		"POST",
 		server.URL,
@@ -39,7 +47,6 @@ func TestItParsesAValidRequest(t *testing.T) {
 	)
 
 	res, err := http.DefaultClient.Do(request)
-
 	if err != nil {
 		t.Fatal(err)
 	}
