@@ -1,1 +1,1 @@
-docker-compose build
+make && docker-compose build --no-cache
