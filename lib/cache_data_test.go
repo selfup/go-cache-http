@@ -8,7 +8,7 @@ import (
 func TestCacheData_NewCacheData(t *testing.T) {
 	testStr := "test"
 	var unixInt int64 = 1507351311
-	var expiresInt int64 = 0
+	var expiresInt int64
 
 	cd := NewCacheData(testStr, unixInt, expiresInt)
 
