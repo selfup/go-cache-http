@@ -2,7 +2,7 @@
 
 Small Golang expirement :smile:
 
-### Docker
+## Docker
 
 Only use Docker to build the image if using containerization technologies like:
 
@@ -19,6 +19,32 @@ Very small so no need to worry about bandwith.
 
 Build times are very fast even from scratch!
 
-### Development
+## Development
 
 Use a local Go install to develop this software.
+
+### Get **Gin** for dev:
+
+**Linux**:
+```
+go get github.com/codegangsta/gin && source ~/.bashrc
+```
+
+**macOS**:
+```
+go get github.com/codegangsta/gin && source ~/.bash_profile
+```
+
+### Use **Gin** for dev:
+
+```
+./scripts/dev.sh
+```
+
+OR
+
+```
+gin run main.go
+```
+
+_Refer to the `./scripts` dir for other tasks that can be run_
