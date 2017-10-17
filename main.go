@@ -53,11 +53,6 @@ func FetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
 		state,
 	)
 
-	state[incoming.Key].ExpirationValidator()
-	if state[incoming.Key].Valid == false {
-		delete(state, incoming.Key)
-	}
-
 	outgoing, err := json.Marshal(state[incoming.Key])
 	if err != nil {
 		http.Error(w, "failed to stringify JSON", 500)

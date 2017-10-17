@@ -7,8 +7,10 @@ import (
 
 func TestCacheData_NewCacheData(t *testing.T) {
 	testStr := "test"
-	var unixInt int64 = 1507351311
-	var expiresInt int64
+	var (
+		unixInt    int64 = 1507351311
+		expiresInt int64
+	)
 
 	cd := NewCacheData(testStr, unixInt, expiresInt)
 
@@ -23,8 +25,10 @@ func TestCacheData_NewCacheData(t *testing.T) {
 
 func TestCacheData_ExpiredCacheData(t *testing.T) {
 	testStr := "test"
-	var unixInt int64 = 1507351311
-	var expiresInt int64 = 1507351310
+	var (
+		unixInt    int64 = 1507351311
+		expiresInt int64 = 1507351310
+	)
 
 	cd := NewCacheData(testStr, unixInt, expiresInt)
 	cd.ExpirationValidator()

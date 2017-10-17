@@ -18,7 +18,15 @@ func WriteToState(
 ) {
 	mutex.Lock()
 	WriteCacheValueData(lid, data, unix, expires, state)
+	potentialKeyRemove(state, lid)
 	mutex.Unlock()
+}
+
+func potentialKeyRemove(state map[string]*CacheData, lid string) {
+	state[lid].ExpirationValidator()
+	if state[lid].Valid == false {
+		delete(state, lid)
+	}
 }
 
 // WriteCacheValueData makes sure to not write to state under certain conditions

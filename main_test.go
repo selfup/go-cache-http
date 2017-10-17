@@ -55,6 +55,26 @@ func TestItParsesAValidRequest(t *testing.T) {
 	}
 }
 
+func TestItRespondsWithA405WhenNotAPostRequest(t *testing.T) {
+	server := httptest.NewServer(&myHandler{})
+	defer server.Close()
+
+	data := `{}`
+	request, err := http.NewRequest(
+		"GET",
+		server.URL,
+		strings.NewReader(data),
+	)
+
+	res, err := http.DefaultClient.Do(request)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if res.StatusCode != 405 {
+		t.Fatalf("Received non-405 response: %d\n", res.StatusCode)
+	}
+}
+
 func TestDefinePort(t *testing.T) {
 	port := DefinePort()
 
