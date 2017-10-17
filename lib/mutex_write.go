@@ -22,6 +22,9 @@ func WriteToState(
 	mutex.Unlock()
 }
 
+// potentialKeyRemove checks to see if it needs to remove the k/v pair
+// first by checking to see if the CacheData is valid or not
+// if not valid - yank it!
 func potentialKeyRemove(state map[string]*CacheData, lid string) {
 	state[lid].ExpirationValidator()
 	if state[lid].Valid == false {
