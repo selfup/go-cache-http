@@ -16,15 +16,26 @@ type CacheData struct {
 	// default to never otherwise invalidate when asked
 	expires int64
 	// bit flippin flag
-	valid bool
+	Valid bool
 }
 
 // NewCacheData will take data and timestamp and default valid to true
-func NewCacheData(data string, unix int64) *CacheData {
+func NewCacheData(data string, unix int64, expires int64) *CacheData {
 	return &CacheData{
 		data:    data,
 		unix:    unix,
-		expires: 0,
-		valid:   true,
+		expires: expires,
+		Valid:   true,
+	}
+}
+
+// ExpirationValidator checks to see if a CacheData object is valid or not
+func (c *CacheData) ExpirationValidator() {
+	// if expires is not the default value
+	// check to see if the current unix timestamp
+	// is greater than or equal to the expiration date
+	// if so - invalidate the object
+	if c.expires > 0 && c.unix >= c.expires {
+		c.Valid = false
 	}
 }
