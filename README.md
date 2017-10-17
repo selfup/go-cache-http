@@ -2,6 +2,8 @@
 
 Small Golang expirement :smile:
 
+Currently up as an [alpine container on heroku](https://gocrashttp.herokuapp.com/)
+
 ## Docker
 
 Only use Docker to build the image if using containerization technologies like:
