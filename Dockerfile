@@ -3,6 +3,6 @@ FROM alpine:latest
 
 WORKDIR "/opt"
 
-ADD .docker_build/go-cache-http /opt/bin/go-cache-http
+ADD .docker_build/gocrashttp /opt/bin/gocrashttp
 
-CMD ["/opt/bin/go-cache-http"]
+CMD ["/opt/bin/gocrashttp"]

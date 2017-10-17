@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    command: /opt/bin/go-cache-http
+    command: /opt/bin/gocrashttp
     ports:
       - "8080:8080"
     volumes:
