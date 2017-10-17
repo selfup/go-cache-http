@@ -4,7 +4,7 @@ GO_BUILD_ENV := CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 # find working dir and point to docker_build dotfile
 DOCKER_BUILD=$(shell pwd)/.docker_build
 # add sub dir in .docker_build
-DOCKER_CMD=$(DOCKER_BUILD)/go-cache-http
+DOCKER_CMD=$(DOCKER_BUILD)/gocrashttp
 
 # clean prior to building
 $(DOCKER_CMD): clean
