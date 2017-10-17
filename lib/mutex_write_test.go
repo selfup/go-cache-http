@@ -16,7 +16,7 @@ func TestCache_WriteToState(t *testing.T) {
 
 	WriteToState(key, testData, unixInt, 0, state)
 
-	expected := NewCacheData(testData, unixInt)
+	expected := NewCacheData(testData, unixInt, 0)
 	actual := state[key]
 
 	if !reflect.DeepEqual(expected, actual) {

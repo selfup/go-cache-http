@@ -32,6 +32,6 @@ func WriteCacheValueData(
 	if state[lid] != nil {
 
 	} else {
-		state[lid] = NewCacheData(data, unix)
+		state[lid] = NewCacheData(data, unix, expires)
 	}
 }
