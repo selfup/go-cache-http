@@ -1,17 +1,18 @@
-package main
+package handlers
 
 import (
 	"net/http"
 	"net/http/httptest"
-	"os"
 	"strings"
 	"testing"
+
+	"github.com/selfup/gocrashttp/lib"
 )
 
 type myHandler struct{}
 
 func (h *myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	FetchCacheOrUpdate(w, r)
+	FetchCacheOrUpdate(make(map[string]*lib.CacheData))(w, r)
 }
 
 func TestItFailsToParseAnEmptyRequest(t *testing.T) {
@@ -72,20 +73,5 @@ func TestItRespondsWithA405WhenNotAPostRequest(t *testing.T) {
 	}
 	if res.StatusCode != 405 {
 		t.Fatalf("Received non-405 response: %d\n", res.StatusCode)
-	}
-}
-
-func TestDefinePort(t *testing.T) {
-	port := DefinePort()
-
-	if port != ":8080" {
-		t.Fatalf("ENV was not defined but port changed to %s", port)
-	}
-
-	os.Setenv("PORT", "8081")
-	envPort := DefinePort()
-
-	if envPort != ":8081" {
-		t.Fatalf("ENV was defined but port changed to %s", port)
 	}
 }

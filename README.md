@@ -25,16 +25,20 @@ Build times are very fast even from scratch!
 
 Use a local Go install to develop this software.
 
-### Get **Gin** for dev:
+### Get **Gin** and **Bro** for dev:
 
 **Linux**:
 ```
-go get github.com/codegangsta/gin && source ~/.bashrc
+go get github.com/codegangsta/gin \
+  && go get github.com/smartystreets/goconvey \
+  && source ~/.bashrc
 ```
 
 **macOS**:
 ```
-go get github.com/codegangsta/gin && source ~/.bash_profile
+go get github.com/codegangsta/gin \
+  && go get github.com/smartystreets/goconvey \
+  && source ~/.bash_profile
 ```
 
 ### Use **Gin** for dev:
@@ -48,5 +52,11 @@ OR
 ```
 gin run main.go
 ```
+
+### Use **Convey** for dev:
+
+Open a new pane/tab in your terminal and just run `$GOPATH/bin/goconvey`
+
+This will watch your files, run tests on save, and display really good information about your tests on http://127.0.0.1:8080
 
 _Refer to the `./scripts` dir for other tasks that can be run_

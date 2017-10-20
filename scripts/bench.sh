@@ -9,7 +9,7 @@ ab \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
-  -p ./scripts/test.txt http://localhost:8080/ > .results \
+  -p ./scripts/bench.txt http://localhost:8080/ > .results \
 
 # to re-track the .results file for updated benchmarks
 # $ git update-index --no-assume-unchanged .results
