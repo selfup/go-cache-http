@@ -1,10 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"net/http"
 	"os"
 
+	"github.com/selfup/gocrashttp/handlers"
 	"github.com/selfup/gocrashttp/lib"
 )
 
@@ -23,46 +23,7 @@ func DefinePort() string {
 	return ":8080"
 }
 
-// FetchCacheOrUpdate is the main handler
-func FetchCacheOrUpdate(w http.ResponseWriter, r *http.Request) {
-	if r.Method != http.MethodPost {
-		http.Error(w, "this endpoint only supports POST requests", 405)
-		return
-	}
-
-	decoder := json.NewDecoder(r.Body)
-
-	var incoming struct {
-		Key     string
-		Data    string
-		Unix    int64
-		Expires int64
-	}
-
-	err := decoder.Decode(&incoming)
-	if err != nil {
-		http.Error(w, "failed to parse JSON", 500)
-		return
-	}
-
-	lib.WriteToState(
-		incoming.Key,
-		incoming.Data,
-		incoming.Unix,
-		incoming.Expires,
-		state,
-	)
-
-	outgoing, err := json.Marshal(state[incoming.Key])
-	if err != nil {
-		http.Error(w, "failed to stringify JSON", 500)
-		return
-	}
-
-	w.Write(outgoing)
-}
-
 func main() {
-	http.HandleFunc("/", FetchCacheOrUpdate)
+	http.HandleFunc("/", handlers.FetchCacheOrUpdate(state))
 	http.ListenAndServe(DefinePort(), nil)
 }
