@@ -9,14 +9,10 @@ import (
 	"github.com/selfup/gocrashttp/lib"
 )
 
-var (
-	state = make(map[string]*lib.CacheData)
-)
-
 type myHandler struct{}
 
 func (h *myHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-	FetchCacheOrUpdate(state)(w, r)
+	FetchCacheOrUpdate(make(map[string]*lib.CacheData))(w, r)
 }
 
 func TestItFailsToParseAnEmptyRequest(t *testing.T) {
