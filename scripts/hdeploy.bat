@@ -6,4 +6,5 @@ rmdir .docker_build
 mkdir .docker_build
 
 go build -v -o .docker_build\gocrashttp .
-docker-compose build
+docker-compose build --no-cache
+heroku container:push web --app gocrashttp
