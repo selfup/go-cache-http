@@ -10,4 +10,4 @@
 # use a reverse proxy (caddy-server/nginx/apache)
 # to proxy the request to the raspberry pi 
 
-screen -d -m ./builds/rpi_main
+screen -d -m ./bin/rpi_gocrashttp

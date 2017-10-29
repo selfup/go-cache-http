@@ -1,1 +1,1 @@
-GOOS=linux GOARCH=arm go build -o builds/rpi_main main.go
+GOOS=linux GOARCH=arm go build -o bin/rpi_gocrashttp main.go
