@@ -25,7 +25,7 @@ Build times are very fast even from scratch!
 
 Use a local Go install to develop this software.
 
-### Get **Gin** and **Bro** for dev:
+### Get **Gin** and **GoConvey** for dev:
 
 **Linux**:
 ```
