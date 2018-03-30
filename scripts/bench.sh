@@ -1,18 +1,16 @@
-# this will run a concurrent benchmark on the server
-# create a file called results (with the results)
-# and then assume unchanged the file from git to not pollute git history
-git update-index --assume-unchanged .results
+if [ "$1" == "-d" ]
+then
+  APP_HOST=0.0.0.0 
+else
+  APP_HOST=localhost
+fi
 
 ab \
-  -n 100000 \
-  -c 50 \
+  -n 50000 \
+  -c 300 \
   -k -v 1 \
   -H "Accept-Encoding: gzip, deflate" \
   -T "application/json" \
-  -p ./scripts/bench.txt http://localhost:8080/ > .results \
+  -p ./scripts/bench.txt "http://$APP_HOST:8081/" > .results.log \
 
-# to re-track the .results file for updated benchmarks
-# $ git update-index --no-assume-unchanged .results
-# coomit the change and then
-# git update-index --assume-unchanged .results
-# prior to a new push
+git checkout -- .results.log
